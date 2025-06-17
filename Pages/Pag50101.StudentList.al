@@ -1,9 +1,12 @@
-page 50101 "Student List"
+page 50111 "Student List"
 {
     ApplicationArea = All;
     Caption = 'Student List';
     PageType = List;
     SourceTable = Student;
+    Editable = false;
+    CardPageId = 50112;
+
 
     layout
     {
@@ -26,6 +29,10 @@ page 50101 "Student List"
                 field(Contact; Rec.Contact)
                 {
                     ToolTip = 'Specifies the value of the Contact field.', Comment = '%';
+                }
+                field("Seminar Registration Status"; Rec."Seminar Registration Status")
+                {
+                    ToolTip = 'Is the Student Registered for the Seminar';
                 }
             }
         }

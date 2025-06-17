@@ -36,6 +36,11 @@ table 50100 Student
         {
             Caption = 'Contact';
         }
+        field(8; "Seminar Registration Status"; Option)
+        {
+            Caption = 'Seminar Registration Status';
+            OptionMembers = Regitered,NotRegitered;
+        }
     }
     keys
     {

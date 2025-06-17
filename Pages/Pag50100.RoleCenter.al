@@ -16,7 +16,27 @@ page 50100 RoleCenter
                 }
             }
         }
+
     }
+
+    actions
+    {
+        area(sections)
+        {
+            group(action1)
+            {
+                Caption = 'Student Admin';
+
+                action(Students)
+                {
+                    Caption = 'Show the Student List';
+                    RunObject = page "Student List";
+                }
+            }
+
+        }
+    }
+
 }
 
 profile SeminarCordinator

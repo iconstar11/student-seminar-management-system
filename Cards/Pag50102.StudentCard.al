@@ -1,10 +1,10 @@
-page 50102 "Student Card"
+page 50112 "Student Card"
 {
     ApplicationArea = All;
     Caption = 'Student Card';
     PageType = Card;
     SourceTable = Student;
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 50102 "Student Card"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("AdnNo."; Rec."AdnNo.")
                 {
                     ToolTip = 'Specifies the value of the AdnNo. field.', Comment = '%';
