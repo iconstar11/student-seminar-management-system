@@ -17,7 +17,8 @@
             "enableSqlInformationDebugger": true,
             "tenant": "default",
             "usePublicURLFromServer": true,
-            "port": 2349
+            "port": 2349,
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }
