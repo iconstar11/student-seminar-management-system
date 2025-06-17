@@ -25,9 +25,10 @@ page 50112 "Student Card"
                 {
                     ToolTip = 'Specifies the value of the City field.', Comment = '%';
                 }
-                field("Post Code "; Rec."Post Code ")
+                field("Post Code "; Rec."Post Code")
                 {
                     ToolTip = 'Specifies the value of the Post Code field.', Comment = '%';
+                    LookupPageId = "Post Codes";
                 }
                 field("Country Code"; Rec."Country Code")
                 {
@@ -48,4 +49,28 @@ page 50112 "Student Card"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(RegisterForSeminar)
+            {
+                Caption = 'Register for a Seminar';
+                Image = Action;
+                trigger OnAction()
+
+                begin
+                    if Rec."Seminar Registration Status" <> Rec."Seminar Registration Status"::Registered then begin
+                        Rec."Seminar Registration Status" := Rec."Seminar Registration Status"::Registered;
+                        Rec.Modify(true);
+                        Message('Student 1% s Registered for the seminar', Rec.Name);
+                    end else
+                        Message('Student 1% is already Registered for the seminar', Rec.Name);
+
+                end;
+
+            }
+        }
+    }
+
 }
