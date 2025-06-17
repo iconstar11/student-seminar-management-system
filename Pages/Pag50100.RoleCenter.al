@@ -14,8 +14,13 @@ page 50100 RoleCenter
                 {
                     ApplicationArea = All;
                 }
+                // part(Part2; "Student List") 
+                // {
+                //     ApplicationArea = All;
+                // }
             }
         }
+
 
     }
 
@@ -35,6 +40,20 @@ page 50100 RoleCenter
             }
 
         }
+        area(Embedding)
+        {
+            action(Student)
+            {
+                Caption = 'Student List';
+                RunObject = page "Student List";
+            }
+            action(Seminar)
+            {
+                Caption = 'Seminar List';
+                RunObject = page "Seminar List";
+            }
+        }
+
     }
 
 }
