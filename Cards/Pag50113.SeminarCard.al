@@ -4,7 +4,7 @@ page 50113 "Seminar Card"
     Caption = 'Seminar Card';
     PageType = Card;
     SourceTable = Seminar;
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 50113 "Seminar Card"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field(SeminarID; Rec.SeminarID)
                 {
                     ToolTip = 'Specifies the value of the SeminarID field.', Comment = '%';
@@ -45,6 +45,19 @@ page 50113 "Seminar Card"
                 {
                     ToolTip = 'Specifies the value of the Status field.', Comment = '%';
                 }
+            }
+        }
+    }
+    actions
+    {
+        area(Navigation)
+        {
+            action(Openpage)
+            {
+                Caption = 'Open Seminar List';
+
+                RunObject = page "Seminar List";
+
             }
         }
     }

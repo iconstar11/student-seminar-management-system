@@ -4,7 +4,8 @@ page 50114 "Seminar List"
     Caption = 'Seminar List';
     PageType = List;
     SourceTable = Seminar;
-    
+    CardPageId = 50113;
+
     layout
     {
         area(Content)

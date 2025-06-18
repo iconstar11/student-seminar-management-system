@@ -5,9 +5,12 @@ table 50111 Seminar
 
     fields
     {
-        field(1; SeminarID; Code[10])
+        field(1; SeminarID; Integer)
         {
             Caption = 'SeminarID';
+            AutoIncrement = true;
+            Editable = false;
+
         }
         field(2; Title; Text[30])
         {
@@ -16,6 +19,12 @@ table 50111 Seminar
         field(3; "Max Seats"; Integer)
         {
             Caption = 'Max Seats';
+
+            trigger OnValidate()
+            begin
+                if "Max Seats" < 1 then
+                    Error('Max Seats Must more than 0');
+            end;
         }
         field(4; Location; Text[30])
         {
@@ -36,7 +45,8 @@ table 50111 Seminar
         field(8; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = Open,Closed;
+            OptionMembers = ,Open,Closed;
+            Editable = false;
         }
     }
     keys
@@ -46,4 +56,10 @@ table 50111 Seminar
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+
+    begin
+        Status := Status::Open;
+    end;
 }
