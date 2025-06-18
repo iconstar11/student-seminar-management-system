@@ -37,6 +37,7 @@ table 50111 Seminar
         field(6; "Created By"; Text[30])
         {
             Caption = 'Created By';
+            Editable = false;
         }
         field(7; "Seminar Date"; Date)
         {
@@ -45,7 +46,7 @@ table 50111 Seminar
         field(8; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = ,Open,Closed;
+            OptionMembers = " ",Open,Closed;
             Editable = false;
         }
     }
@@ -60,6 +61,18 @@ table 50111 Seminar
     trigger OnInsert()
 
     begin
-        Status := Status::Open;
+        if Status = Status::" " then
+            Status := Status::Open;
+
+        if "Created By" = '' then
+            "Created By" := UserId;
+    end;
+
+    trigger OnDelete()
+    begin
+        if "Students Registered" > 0 then
+            Error('This seminar cannot be deleted because students are already registered.')
+        else
+            Message('You are about to delete this seminar. In future, deletion will be blocked if students are registered.');
     end;
 }
