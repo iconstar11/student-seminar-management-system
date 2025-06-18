@@ -50,7 +50,8 @@ page 50113 "Seminar Card"
     }
     actions
     {
-        area(Navigation)
+
+        area(Processing)
         {
             action(Openpage)
             {
@@ -58,6 +59,41 @@ page 50113 "Seminar Card"
 
                 RunObject = page "Seminar List";
 
+            }
+            action(CloseSeminar)
+            {
+                Caption = 'Close This Seminar';
+                Image = Close;
+                trigger OnAction();
+
+                begin
+                    if Rec.Status = Rec.Status::Closed then
+                        Message('Seminar "%1" is already closed', Rec.Title)
+                    else begin
+                        Rec.Status := Rec.Status::Closed;
+                        Rec.Modify(true);
+                        Message('Seminar "%1" is Closed', Rec.Title);
+                    end;
+                end;
+            }
+            action(OpenSeminar)
+            {
+                Caption = 'Open Seminar';
+                Image = Open;
+
+                trigger OnAction()
+                begin
+                    if Rec.Status = Rec.Status::Open then
+                        Message('Seminar "%1" is already Opened')
+                    else if Rec.Status = Rec.Status::full then
+                        Error('You can open a full seminar')
+                    else begin
+                        Rec.Status := Rec.Status::Open;
+                        Message('You have set the status of Seminar "%1" to Open', Rec.Title);
+
+                    end
+
+                end;
             }
         }
     }
