@@ -46,6 +46,11 @@ page 50113 "Seminar Card"
                     ToolTip = 'Specifies the value of the Status field.', Comment = '%';
                 }
             }
+            part(RegistredStudents; "SeminarRegistration ListPart")
+            {
+                ApplicationArea = Basic, Suite;
+                SubPageLink = SeminarID = field(SeminarID);
+            }
         }
     }
     actions
@@ -95,6 +100,12 @@ page 50113 "Seminar Card"
 
                 end;
             }
+
         }
     }
+    trigger OnOpenPage()
+    begin
+        if Rec.Status = Rec.Status::Closed then
+            Message('This Seminar is closed');
+    end;
 }
