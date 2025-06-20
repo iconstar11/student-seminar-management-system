@@ -14,10 +14,23 @@ table 50112 "Seminar Registration"
         field(2; SeminarID; Integer)
         {
             Caption = 'SeminarID';
+
+            trigger OnValidate()
+
+            var
+                SeminarRec: Record Seminar;
+
+            begin
+                if SeminarRec.Get(SeminarID) then begin
+                    "Seminar Title" := SeminarRec.Title
+                end;
+            end;
         }
         field(3; "Seminar Title"; Text[30])
         {
             Caption = 'Seminar Title';
+
+
         }
         field(4; "AdnNo."; Integer)
         {
