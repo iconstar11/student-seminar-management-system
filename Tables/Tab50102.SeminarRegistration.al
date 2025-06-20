@@ -58,8 +58,29 @@ table 50112 "Seminar Registration"
         }
     }
     trigger OnInsert()
+    var
+        SeminarRec: Record Seminar;
     begin
         if "Registration Date" = 0D then
             "Registration Date" := Today;
+
+        if SeminarRec.Get(SeminarID) then begin
+            if SeminarRec.Status = SeminarRec.Status::Closed then
+                Error('Seminar "%1" closed', SeminarRec.Title)
+            else if SeminarRec.Status = SeminarRec.Status::full then
+                Error('Seminar is full');
+        end;
+        SeminarRec."Students Registered" += 1;
+        SeminarRec.Modify(true);
+    end;
+
+    trigger OnDelete()
+    var
+        SeminarRec: Record Seminar;
+    begin
+        if SeminarRec.Get(SeminarID) then begin
+            SeminarRec."Students Registered" -= 1;
+            SeminarRec.Modify(true);
+        end;
     end;
 }

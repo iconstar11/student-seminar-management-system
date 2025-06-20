@@ -15,10 +15,6 @@ page 50115 "SeminarRegistration ListPart"
                 {
                     ToolTip = 'Specifies the value of the No field.', Comment = '%';
                 }
-                field(SeminarID; Rec.SeminarID)
-                {
-
-                }
                 field("AdnNo."; Rec."AdnNo.")
                 {
                     ToolTip = 'Specifies the value of the AdnNo. field.', Comment = '%';
