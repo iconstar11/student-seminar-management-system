@@ -52,6 +52,11 @@ page 50100 RoleCenter
                 Caption = 'Seminar List';
                 RunObject = page "Seminar List";
             }
+            action(RegisteredList)
+            {
+                Caption = 'Students Registered';
+                RunObject = page "Seminar Registration List";
+            }
         }
 
     }

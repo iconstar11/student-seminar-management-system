@@ -33,6 +33,7 @@ table 50111 Seminar
         field(5; "Students Registered"; Integer)
         {
             Caption = 'Students Registered';
+            Editable = false;
         }
         field(6; "Created By"; Text[30])
         {
@@ -46,8 +47,12 @@ table 50111 Seminar
         field(8; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = " ",Open,Closed;
+            OptionMembers = " ",Open,Closed,full;
             Editable = false;
+
+
+
+
         }
     }
     keys
