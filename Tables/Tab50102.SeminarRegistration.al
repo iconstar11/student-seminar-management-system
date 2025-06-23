@@ -98,4 +98,6 @@ table 50112 "Seminar Registration"
             SeminarRec.Modify(true);
         end;
     end;
+
+
 }

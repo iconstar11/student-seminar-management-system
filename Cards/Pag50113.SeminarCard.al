@@ -70,94 +70,92 @@ page 50113 "Seminar Card"
 
         area(Processing)
         {
-            action(Openpage)
+            group(SeminarActions)
             {
-                Caption = 'Open Seminar List';
+                action(Openpage)
+                {
+                    Caption = 'Open Seminar List';
+                    Promoted = true;
+                    PromotedCategory = Process;
 
-                RunObject = page "Seminar List";
+                    RunObject = page "Seminar List";
 
-            }
-            action(CloseSeminar)
-            {
-                Caption = 'Close This Seminar';
-                Image = Close;
-                trigger OnAction();
+                }
+                action(CloseSeminar)
+                {
+                    Caption = 'Close This Seminar';
+                    Image = Close;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    trigger OnAction();
 
-                begin
-                    if Rec.Status = Rec.Status::Closed then
-                        Message('Seminar "%1" is already closed', Rec.Title)
-                    else begin
-                        Rec.Status := Rec.Status::Closed;
-                        Rec.Modify(true);
-                        Message('Seminar "%1" is Closed', Rec.Title);
+                    begin
+                        if Rec.Status = Rec.Status::Closed then
+                            Message('Seminar "%1" is already closed', Rec.Title)
+                        else begin
+                            Rec.Status := Rec.Status::Closed;
+                            Rec.Modify(true);
+                            Message('Seminar "%1" is Closed', Rec.Title);
+                        end;
                     end;
-                end;
-            }
-            action(OpenSeminar)
-            {
-                Caption = 'Open Seminar';
-                Image = Open;
+                }
+                action(OpenSeminar)
+                {
+                    Caption = 'Open Seminar';
+                    Image = Open;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    trigger OnAction()
+                    begin
+                        if Rec.Status = Rec.Status::Open then
+                            Message('Seminar "%1" is already Opened')
+                        else if Rec.Status = Rec.Status::full then
+                            Error('You can open a full seminar')
+                        else begin
+                            Rec.Status := Rec.Status::Open;
+                            Message('You have set the status of Seminar "%1" to Open', Rec.Title);
 
-                trigger OnAction()
-                begin
-                    if Rec.Status = Rec.Status::Open then
-                        Message('Seminar "%1" is already Opened')
-                    else if Rec.Status = Rec.Status::full then
-                        Error('You can open a full seminar')
-                    else begin
-                        Rec.Status := Rec.Status::Open;
-                        Message('You have set the status of Seminar "%1" to Open', Rec.Title);
+                        end
 
-                    end
+                    end;
+                }
+                action(ApproveSeminar)
+                {
+                    Caption = 'Approve';
+                    Image = Approve;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
+                    trigger OnAction();
+                    begin
+                        if Rec."Approval Status" <> Rec."Approval Status"::Pending then
+                            Error('You can only Approve a pending Seminar')
+                        else
+                            Rec."Approval Status" := Rec."Approval Status"::Approved;
+                    end;
 
-                end;
-            }
-            action(ApproveSeminar)
-            {
-                Caption = 'Approve';
-                Image = Approve;
+                }
 
-                Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
-                trigger OnAction();
-                begin
-                    if Rec."Approval Status" <> Rec."Approval Status"::Pending then
-                        Error('You can only Approve a pending Seminar')
-                    else
-                        Rec."Approval Status" := Rec."Approval Status"::Approved;
-                end;
+                action(RejectSeminar)
+                {
+                    Caption = 'reject';
+                    Image = Reject;
+                    Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
+                    Promoted = true;
+                    PromotedCategory = Process;
 
-            }
-
-            action(RejectSeminar)
-            {
-                Caption = 'reject';
-                Image = Reject;
-                Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
-
-                trigger OnAction();
-                begin
-                    if Rec."Approval Status" <> Rec."Approval Status"::Pending then
-                        Error('You Can Only Reject a Pending class')
-                    else
-                        Rec."Approval Status" := Rec."Approval Status"::Rejected;
-                end;
+                    trigger OnAction();
+                    begin
+                        if Rec."Approval Status" <> Rec."Approval Status"::Pending then
+                            Error('You Can Only Reject a Pending class')
+                        else
+                            Rec."Approval Status" := Rec."Approval Status"::Rejected;
+                    end;
+                }
             }
 
         }
     }
-    procedure GetStatusStyle(): Text
-    begin
-        case Rec."Approval Status" of
-            Rec."Approval Status"::Approved:
-                exit('Positive');     // Green
-            Rec."Approval Status"::Pending:
-                exit('Ambiguous');    // Yellow/Orange
-            Rec."Approval Status"::Rejected:
-                exit('Attention');    // Red
-            else
-                exit('');
-        end;
-    end;
 
     trigger OnOpenPage()
     begin
