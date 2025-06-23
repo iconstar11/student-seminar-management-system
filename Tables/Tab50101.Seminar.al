@@ -50,9 +50,12 @@ table 50111 Seminar
             OptionMembers = " ",Open,Closed,full;
             Editable = false;
 
-
-
-
+        }
+        field(9; "Approval Status"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ",Pending,Approved,Rejected;
+            Editable = false;
         }
     }
     keys
@@ -65,12 +68,20 @@ table 50111 Seminar
 
     trigger OnInsert()
 
+
+
     begin
         if Status = Status::" " then
             Status := Status::Open;
 
         if "Created By" = '' then
             "Created By" := UserId;
+
+        if "Approval Status" = "Approval Status"::" " then
+            "Approval Status" := "Approval Status"::Pending;
+
+
+
     end;
 
     trigger OnDelete()
