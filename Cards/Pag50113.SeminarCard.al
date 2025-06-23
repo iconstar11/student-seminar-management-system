@@ -1,12 +1,18 @@
 page 50113 "Seminar Card"
+
 {
+
     ApplicationArea = All;
     Caption = 'Seminar Card';
     PageType = Card;
     SourceTable = Seminar;
 
+
+
+
     layout
     {
+
         area(Content)
         {
             group(General)
@@ -48,6 +54,8 @@ page 50113 "Seminar Card"
                 field("Approval Status"; Rec."Approval Status")
                 {
                     ToolTip = 'Seminar status';
+                    StyleExpr = ApprovalStyle;
+
                 }
             }
             part(RegistredStudents; "SeminarRegistration ListPart")
@@ -108,6 +116,8 @@ page 50113 "Seminar Card"
             {
                 Caption = 'Approve';
                 Image = Approve;
+
+                Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
                 trigger OnAction();
                 begin
                     if Rec."Approval Status" <> Rec."Approval Status"::Pending then
@@ -122,6 +132,7 @@ page 50113 "Seminar Card"
             {
                 Caption = 'reject';
                 Image = Reject;
+                Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
 
                 trigger OnAction();
                 begin
@@ -134,9 +145,44 @@ page 50113 "Seminar Card"
 
         }
     }
+    procedure GetStatusStyle(): Text
+    begin
+        case Rec."Approval Status" of
+            Rec."Approval Status"::Approved:
+                exit('Positive');     // Green
+            Rec."Approval Status"::Pending:
+                exit('Ambiguous');    // Yellow/Orange
+            Rec."Approval Status"::Rejected:
+                exit('Attention');    // Red
+            else
+                exit('');
+        end;
+    end;
+
     trigger OnOpenPage()
     begin
         if Rec.Status = Rec.Status::Closed then
             Message('This Seminar is closed');
     end;
+
+    var
+        ApprovalStyle: Text;
+
+
+    trigger OnAfterGetRecord()
+    begin
+        case Rec."Approval Status" of
+            Rec."Approval Status"::Approved:
+                ApprovalStyle := 'Positive';
+            Rec."Approval Status"::Pending:
+                ApprovalStyle := 'Ambiguous';
+            Rec."Approval Status"::Rejected:
+                ApprovalStyle := 'Attention';
+            else
+                ApprovalStyle := '';
+        end;
+    end;
+
+
+
 }
