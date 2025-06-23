@@ -1,67 +1,75 @@
-# 🎓 Seminar Management System (Built in AL for Business Central)
+# 🎓 Student Seminar Management System (Business Central AL)
 
-This is a learning-driven ERP mini-system built using **AL language** on **Microsoft Dynamics 365 Business Central**.  
-The goal is to simulate real-world ERP development processes by gradually evolving a working solution — from basic data models to business logic, approvals, and reporting.
+A complete ERP-style mini-system built in **AL language** for **Microsoft Dynamics 365 Business Central**.  
+This project simulates a real-world workflow — from master data management to registration, approvals, and reporting.
 
 ---
 
 ##  Overview
 
-The Seminar Management System is designed to handle:
-- Student registrations
-- Seminar setup and capacity tracking
-- Registration validations
-- Reporting and potential workflow integration
+The system manages:
+- Seminar creation, approval, and capacity tracking
+- Student records and registration
+- Approval workflow: Pending → Approved → Rejected
+- Automatic validations (e.g. no overbooking)
+- Real-time reporting: registered students by seminar
+
+---
+
+##  Technologies Used
+
+- AL Language (VS Code + AL Extension)
+- Microsoft Dynamics 365 Business Central
+- Based on learning from:
+  - *Navision 4.0 - Course 8401A*
+  - *D365 for Dummies*
+  - *Using D365 Finance & Operations*
+
+---
+
+## Features
+
+- 🔹 Seminar & Student master tables
+- 🔹 Auto-fill City/Post Code from Post Code table
+- 🔹 Registration table with SubPageLink to Seminar
+- 🔹 Triggers: `OnInsert`, `OnValidate`, `OnAction`, `OnOpenPage`
+- 🔹 Business logic:
+  - Prevent double registration
+  - Prevent overbooking
+  - Approve/Reject logic with status-controlled buttons
+- 🔹 Styled UI with colored approval badges
+- 🔹 Reports:
+  - Filter seminars by status/date
+  - Show registered count
+
+---
+
+## Learning Outcomes
+
+- Understanding AL page, table, and report objects
+- Designing parent-child relationships using `SubPageLink`
+- Implementing status-driven workflows
+- Using `StyleExpr`, `User Group Member`, and filtering logic
+- Creating structured, ERP-style business rules
 
 
 ---
 
-##  Technologies
+##  Future Improvements
 
--  **AL Language** (Visual Studio Code + AL Extension)
--  Structured using insights from:
-  - _Microsoft Business Solutions Navision 4.0 - Course 8401A_
-  - _Microsoft Dynamics 365 for Dummies_
-  - _Using Microsoft Dynamics 365 for Finance and Operations_
-
-
-
-##  Key Features (So Far)
-
--  Student and Seminar master tables
--  City → Post Code relation setup
--  Seminar page with OnValidate triggers
--  Validation logic to prevent inconsistent registration
--  Clean UI with action triggers (coming soon)
--  Modular design ready for workflow and reporting layers
+- [ ] Refactor using codeunits for business logic
+- [ ] Email notification on approval
+- [ ] Export report as PDF
+- [ ] Add audit trail or change log table
+- [ ] User role control with Permission Sets
 
 ---
-
-##  Learning Focus
-
-This project helps reinforce:
-- AL syntax and best practices
-- Page triggers (`OnOpenPage`, `OnAction`, `OnValidate`)
-- Relationships, SubPageLinks, and Lookups
-- ERP thinking: approval flows, reports, modular design
-
----
-
-##  Roadmap (Next Features)
-
-- [ ] Add Registration table and SubPage for student signups
-- [ ] Seminar approval workflow via actions/status
-- [ ] Report: seminar with number of attendees
-- [ ] Add lookup pages and filters
-- [ ] Export report (PDF or Excel)
-- [ ] Permissions & role testing
-
----
-
 
 ## 🙋‍♂️ Author
 
 **[@iconstar11](https://github.com/iconstar11)**  
-Computer Science Student | Business Central Enthusiast | ERP Learner
+Computer Science Intern | ERP + Business Central Enthusiast  
+
 
 ---
+
