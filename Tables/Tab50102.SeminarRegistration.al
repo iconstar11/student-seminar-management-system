@@ -81,7 +81,9 @@ table 50112 "Seminar Registration"
             if SeminarRec.Status = SeminarRec.Status::Closed then
                 Error('Seminar "%1" closed', SeminarRec.Title)
             else if SeminarRec.Status = SeminarRec.Status::full then
-                Error('Seminar is full');
+                Error('Seminar is full')
+            else if SeminarRec."Approval Status" = SeminarRec."Approval Status"::Rejected then
+                Error('This Seminar was disaprroved');
         end;
         SeminarRec."Students Registered" += 1;
         SeminarRec.Modify(true);
