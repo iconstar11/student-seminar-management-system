@@ -45,6 +45,10 @@ page 50113 "Seminar Card"
                 {
                     ToolTip = 'Specifies the value of the Status field.', Comment = '%';
                 }
+                field("Approval Status"; Rec."Approval Status")
+                {
+                    ToolTip = 'Seminar status';
+                }
             }
             part(RegistredStudents; "SeminarRegistration ListPart")
             {
@@ -98,6 +102,33 @@ page 50113 "Seminar Card"
 
                     end
 
+                end;
+            }
+            action(ApproveSeminar)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                trigger OnAction();
+                begin
+                    if Rec."Approval Status" <> Rec."Approval Status"::Pending then
+                        Error('You can only Approve a pending Seminar')
+                    else
+                        Rec."Approval Status" := Rec."Approval Status"::Approved;
+                end;
+
+            }
+
+            action(RejectSeminar)
+            {
+                Caption = 'reject';
+                Image = Reject;
+
+                trigger OnAction();
+                begin
+                    if Rec."Approval Status" <> Rec."Approval Status"::Pending then
+                        Error('You Can Only Reject a Pending class')
+                    else
+                        Rec."Approval Status" := Rec."Approval Status"::Rejected;
                 end;
             }
 
